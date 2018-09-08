@@ -43,8 +43,8 @@ run: ## Runs electrum docker image
 	docker run -v $(PWD)/data:/app/electrum --rm --name electrum-container -p 7777:7777 electrum-image
 
 .PHONY: run-testnet
-run: ## Runs electrum docker image
-	docker run -e ELECTRUM_ENV_NETWORK_TYPE='--testnet' -v $(PWD)/data:/app/electrum --rm --name electrum-container -p 7777:7777 electrum-image
+run-testnet: ## Runs electrum docker image
+	docker run --env-file ./.env -v $(PWD)/account_40_port_57854:/app/electrum --rm --name electrum-container -p 7777:7777 electrum-image
 
 .PHONY: run-as-deamon
 run-as-deamon: ## Runs electrum docker image
