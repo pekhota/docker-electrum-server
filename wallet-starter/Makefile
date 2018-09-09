@@ -33,7 +33,7 @@ include .env
 
 .PHONY: run
 run: ## Runs electrum docker image
-    docker run -d --env-file ./.env -v $(PWD):/app/electrum --restart unless-stopped --name electrum-container-$(MAKE_ELECTRUM_HOST_PORT) -p $(MAKE_ELECTRUM_HOST_PORT):7777 electrum-image
+	docker run -d --env-file ./.env -v $(PWD):/app/electrum --restart unless-stopped --name electrum-container-$(MAKE_ELECTRUM_HOST_PORT) -p $(MAKE_ELECTRUM_HOST_PORT):7777 electrum-image
 
 
 .PHONY: help
