@@ -6,6 +6,10 @@ if [ ! -f /app/electrum/wallets/default_wallet ] && [ ! -f /app/electrum/testnet
     bash setup-settings.sh
 fi
 
+if [ "$ELECTRUM_ENV_OVERRIDE_CONFIG" = true ] ; then
+    bash setup-settings.sh
+fi
+
 printf "Going to start daemon\n"
 printf "Network type >> $ELECTRUM_ENV_NETWORK_TYPE  << \n"
 

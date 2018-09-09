@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
 ENV ELECTRUM_ENV_NETWORK_TYPE ""
 ENV ELECTRUM_ENV_VERSION "3.1.3"
 ENV ELECTRUM_ENV_WALLET_PASSWORD ""
+ENV ELECTRUM_ENV_OVERRIDE_CONFIG true
 
 RUN pip3 install https://download.electrum.org/${ELECTRUM_ENV_VERSION}/Electrum-${ELECTRUM_ENV_VERSION}.tar.gz
 
