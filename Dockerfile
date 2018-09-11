@@ -8,25 +8,16 @@ RUN apt-get update && apt-get install -y \
   curl \
   jq
 
-ENV ELECTRUM_ENV_NETWORK_TYPE ""
-ENV ELECTRUM_ENV_VERSION "3.1.3"
-ENV ELECTRUM_ENV_WALLET_PASSWORD ""
-ENV ELECTRUM_ENV_OVERRIDE_CONFIG true
 
-RUN pip3 install https://download.electrum.org/${ELECTRUM_ENV_VERSION}/Electrum-${ELECTRUM_ENV_VERSION}.tar.gz
+RUN pip3 install https://download.electrum.org/3.1.3/Electrum-3.1.3.tar.gz
 
 VOLUME /app/electrum/
+VOLUME /el-scripts/
 
-WORKDIR /app
+COPY ./entrypoint.sh /entrypoint.sh
+COPY ./el-scripts /el-scripts
 
-COPY . /app
+RUN chmod +x /entrypoint.sh
+RUN chmod -R +x /el-scripts/
 
-EXPOSE 7777
-
-RUN chmod +x /app/docker-entrypoint.sh
-RUN chmod +x /app/electrum-watcher.sh
-
-ENTRYPOINT ["/app/docker-entrypoint.sh"]
-
-CMD ["/bin/bash", "/app/electrum-watcher.sh"]
-
+ENTRYPOINT /entrypoint.sh
