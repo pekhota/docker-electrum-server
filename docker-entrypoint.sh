@@ -18,6 +18,7 @@ sleep 2
 
 printf "Going to load wallet\n"
 
+#https://stackoverflow.com/questions/30106758/difference-between-braces-and-brackets-in-shell-scripting
 #https://www.cyberciti.biz/faq/unix-linux-bash-script-check-if-variable-is-empty/
 if [ -z "$ELECTRUM_ENV_WALLET_PASSWORD" ]
 then
