@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # 1. check if a wallet is already present
-if [ ! -f /app/electrum/wallets/default_wallet ] && [ ! -f /app/electrum/testnet/wallets/default_wallet ]; then
+if [ ! -f ${ELECTRUM_PATH}/wallets/default_wallet ] && [ ! -f ${ELECTRUM_PATH}/testnet/wallets/default_wallet ]; then
     echo -e "\n**** No wallet found. Creating one. ****\n"
     # 2. no wallet present, so create a new one
     expect /el-scripts/create-wallet.exp
