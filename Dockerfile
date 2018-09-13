@@ -1,5 +1,6 @@
 FROM phusion/baseimage:0.11
 
+# install environment dependencies
 RUN apt-get update && apt-get install -y \
   python3-setuptools \
   python3-pyqt5 \
@@ -8,15 +9,14 @@ RUN apt-get update && apt-get install -y \
   curl \
   jq
 
-
+# install electrum
 RUN pip3 install https://download.electrum.org/3.1.3/Electrum-3.1.3.tar.gz
 
-VOLUME /app/electrum/
-VOLUME /el-scripts/
-
+# copy the entrypoint script and the scripts to work with electrum into a container
 COPY ./entrypoint.sh /entrypoint.sh
 COPY ./el-scripts /el-scripts
 
+# give the scripts execution rights
 RUN chmod +x /entrypoint.sh
 RUN chmod -R +x /el-scripts/
 
