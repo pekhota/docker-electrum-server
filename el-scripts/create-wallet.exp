@@ -7,13 +7,13 @@ if {$env(ELECTRUM_NETWORK) eq ""} {
 }
 
 expect -exact "Password (hit return if you do not wish to encrypt your wallet):"
-send -- "$env(ELECTRUM_WALLET_PASSWORD)\r"
+send "$env(ELECTRUM_WALLET_PASSWORD)\r"
 
 if {$env(ELECTRUM_WALLET_PASSWORD) eq ""} {
  
 } else {
     expect -exact "Confirm:"
-    send -- "$env(ELECTRUM_WALLET_PASSWORD)\r"
+    send "$env(ELECTRUM_WALLET_PASSWORD)\r"
 }
 
 expect eof

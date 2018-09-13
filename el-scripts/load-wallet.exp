@@ -10,7 +10,7 @@ if {"$env(ELECTRUM_WALLET_PASSWORD)" eq ""} {
 
 } else {
     expect -exact "Password:"
-    send -- "$env(ELECTRUM_WALLET_PASSWORD)\r"        
+    send "$env(ELECTRUM_WALLET_PASSWORD)\r"
 }
 
 expect eof
