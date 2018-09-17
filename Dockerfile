@@ -1,5 +1,8 @@
 FROM phusion/baseimage:0.11
 
+ENV ELECTRUM_VERSION 3.1.3
+
+# install environment dependencies
 RUN apt-get update && apt-get install -y \
   python3-setuptools \
   python3-pyqt5 \
@@ -8,25 +11,15 @@ RUN apt-get update && apt-get install -y \
   curl \
   jq
 
-ENV ELECTRUM_ENV_NETWORK_TYPE ""
-ENV ELECTRUM_ENV_VERSION "3.1.3"
-ENV ELECTRUM_ENV_WALLET_PASSWORD ""
-ENV ELECTRUM_ENV_OVERRIDE_CONFIG true
+# install electrum
+RUN pip3 install https://download.electrum.org/${ELECTRUM_VERSION}/Electrum-${ELECTRUM_VERSION}.tar.gz
 
-RUN pip3 install https://download.electrum.org/${ELECTRUM_ENV_VERSION}/Electrum-${ELECTRUM_ENV_VERSION}.tar.gz
+# copy the entrypoint script and the scripts to work with electrum into a container
+COPY ./entrypoint.sh /entrypoint.sh
+COPY ./el-scripts /el-scripts
 
-VOLUME /app/electrum/
+# give the scripts execution rights
+RUN chmod +x /entrypoint.sh
+RUN chmod -R +x /el-scripts/
 
-WORKDIR /app
-
-COPY . /app
-
-EXPOSE 7777
-
-RUN chmod +x /app/docker-entrypoint.sh
-RUN chmod +x /app/electrum-watcher.sh
-
-ENTRYPOINT ["/app/docker-entrypoint.sh"]
-
-CMD ["/bin/bash", "/app/electrum-watcher.sh"]
-
+ENTRYPOINT /entrypoint.sh

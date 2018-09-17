@@ -1,0 +1,16 @@
+#!/usr/bin/expect
+
+if {$env(ELECTRUM_NETWORK) eq ""} {
+  spawn electrum -D "$env(ELECTRUM_PATH)" daemon load_wallet
+} else {
+  spawn electrum "$env(ELECTRUM_NETWORK)" -D "$env(ELECTRUM_PATH)" daemon load_wallet
+}
+
+if {"$env(ELECTRUM_WALLET_PASSWORD)" eq ""} {
+
+} else {
+    expect -exact "Password:"
+    send "$env(ELECTRUM_WALLET_PASSWORD)\r"
+}
+
+expect eof
