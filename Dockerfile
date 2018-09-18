@@ -21,5 +21,6 @@ COPY ./el-scripts /el-scripts
 # give the scripts execution rights
 RUN chmod +x /entrypoint.sh
 RUN chmod -R +x /el-scripts/
+RUN pip3 install -r /el-scripts/requirements.txt
 
 ENTRYPOINT /entrypoint.sh
