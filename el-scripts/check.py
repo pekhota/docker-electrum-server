@@ -3,12 +3,23 @@ import requests
 from requests.auth import HTTPBasicAuth
 from argparse import ArgumentParser
 
+"""
+***** Definitions *****
+"""
+
 
 def assert_response_code_is_200(response_object):
     assert (response_object.status_code == 200), "Response code from electrum api is not 200! Actual code is " + str(
         response_object.status_code)
 
 
+"""
+***** END Definitions *****
+"""
+
+"""
+***** Arguments ***** 
+"""
 parser = ArgumentParser()
 parser.add_argument("-u", "--url", dest="url",
                     help="request url", required=True)
@@ -20,7 +31,13 @@ parser.add_argument("-p", "--pwd", dest="pwd",
                     help="Basic Auth password", required=True)
 
 args = parser.parse_args()
+"""
+***** END Arguments *****
+"""
 
+"""
+***** Ping *****
+"""
 url = args.url
 login = args.login
 pwd = args.pwd
@@ -46,3 +63,6 @@ assert 'confirmed' in jsonBody[
     'result'], "Result object should have `confirmed` key, but it doesn't!" + " Actual result is " + content
 
 print("Ok...")
+"""
+***** END Ping *****
+"""
