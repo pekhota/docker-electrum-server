@@ -11,12 +11,6 @@ if {"$env(ELECTRUM_WALLET_PASSWORD)" eq ""} {
 } else {
     expect -exact "Password:"
     send "$env(ELECTRUM_WALLET_PASSWORD)\r"
-
-    expect {
-      -re "Incorrect password" {
-        exit 1
-      }
-    }
 }
 
 expect eof
