@@ -1,0 +1,13 @@
+version: '3'
+services:
+  electrum:
+    container_name: electrum-${ACCOUNT_ID}
+    build: ./../
+    ports:
+      - ${DOCKER_HOST_PORT}:7777
+    volumes:
+      - ./:/app/electrum
+#    entrypoint: ["tail", "-f","/dev/null"]
+    env_file:
+    - electrum-vars.env
+    restart: on-failure # https://docs.docker.com/compose/compose-file/#restart

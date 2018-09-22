@@ -1,16 +1,37 @@
 #!/usr/bin/expect
 
-if {$env(ELECTRUM_NETWORK) eq ""} {
-  spawn electrum -D "$env(ELECTRUM_PATH)" daemon load_wallet
+puts "Processing load-wallet.exp ..."
+
+set electrum_network $env(ELECTRUM_NETWORK)
+set electrum_path $env(ELECTRUM_PATH)
+set electrum_wallet_password $env(ELECTRUM_WALLET_PASSWORD)
+
+puts "Printing variables..."
+puts "electrum_network: >>$electrum_network<<"
+puts "electrum_path: >>$electrum_path<<"
+puts "electrum_wallet_password: >>$electrum_wallet_password<<"
+
+if {$electrum_network eq ""} {
+  spawn electrum -D "$electrum_path" daemon load_wallet
 } else {
-  spawn electrum "$env(ELECTRUM_NETWORK)" -D "$env(ELECTRUM_PATH)" daemon load_wallet
+  spawn electrum "$electrum_network" -D "$electrum_path" daemon load_wallet
 }
 
-if {"$env(ELECTRUM_WALLET_PASSWORD)" eq ""} {
+expect {
+    "Daemon not running" {
+        exit 1
+    }
+    "true" {
 
-} else {
-    expect -exact "Password:"
-    send "$env(ELECTRUM_WALLET_PASSWORD)\r"
+    }
+    default {
+        if {"$electrum_wallet_password" eq ""} {
+
+        } else {
+            expect -exact "Password:"
+            send "$electrum_wallet_password\r"
+        }
+    }
 }
 
-expect eof
+interact

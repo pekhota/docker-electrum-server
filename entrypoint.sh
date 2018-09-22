@@ -31,6 +31,8 @@ echo -e "\n**** ---- Getting daemon running. ****\n"
 # 4. get daemon running
 bash /el-scripts/start-daemon.sh 
 
+sleep 2
+
 echo -e "\n**** ---- Loading wallet. ****\n"
 
 # 5. load wallet
